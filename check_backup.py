@@ -2,7 +2,7 @@ import argparse
 
 from tqdm import tqdm
 
-from backuputils import get_files, get_file_hash, trash, remove_empty_dirs
+from backuputils import get_files, get_file_hash
 
 
 if __name__ == '__main__':
@@ -13,9 +13,5 @@ if __name__ == '__main__':
 
     reference_hashes = set([get_file_hash(filepath) for filepath in get_files(args.backup)])
     for filepath in tqdm(get_files(args.original), 'Checking missing files'):
-        if filepath.name == 'trash':
-            continue
-        if filepath.name.startswith('.'):
-            continue
         if not get_file_hash(filepath) in reference_hashes:
             print(filepath)
